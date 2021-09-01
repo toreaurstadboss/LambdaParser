@@ -1,21 +1,7 @@
-﻿作者:朱才
-Email:ToreAurstadIT+lambdaparser@gmail.com
-http://www.cnblogs.com/ToreAurstadIT
-
-
-
-This library has been forked from: 
-https://github.com/ToreAurstadIT/lambda-parser 
-
-No license exists in the original repo.
-
-
-The repo has been slightly rewritten. It got now support for enum members and the library is upgraded from .NET 3.5 to 
-.NET 4.8. A plan for moving the library to .NET Standard 2.0 exists.
-
-
-
-This repo has got an MIT License. 
+﻿
+This repo has got an MIT License. Forked from  https://github.com/zhucai/ and I have fixed a few bugs to make the Lambda Parser better.
+Also, Target Framework is liftet up from .NETFramework 3.5. to .NETFramework 4.8. I desire to upgrade to .NET Standard 2.0 later, so the 
+lib can be used with .NET Core (see compability table online).
 
 Copyright 2021 TORE AURSTAD IT
 
