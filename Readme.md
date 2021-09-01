@@ -14,8 +14,7 @@ You are FREE to use this library on your own responsibility!
 Credentials to **Zhucai** for great work on the Lambda Parser! 
 
 - I have just polished and quality assured the lib a little bit. I have found a few bugs which is now fixed. 
-
-I forked this lib to make it available on Nuget and Github and upgrade it to .NET Framework 4.8.
+I forked this lib to make it available on Nuget and Github and upgrade it from .NET Framework 3.5 to .NET Framework 4.8.
 Plans are underway to use .NET Standard 2.1 instead. 
 
 The following issues has been fixed: 
@@ -68,6 +67,23 @@ The lib now supports enum values.
         }
 ```
 
-You can view test code to explore more functions:  https://github.com/toreaurstadboss/LambdaParser/blob/main/LambdaParser/Test_Zhucai.LambdaParser/ExpressionParserTest.cs
+You can view test code to explore more functions, there are several more lambda expressions which are supported:
+https://github.com/toreaurstadboss/LambdaParser/blob/main/LambdaParser/Test_Zhucai.LambdaParser/ExpressionParserTest.cs
+
+
+### Building new versions of this lib
+
+Quick Note ! Remember to switch to Release before building the entire solution in Visual Studio and to avoid pushing a nuget with Debug to production as this will run slower ! 
+
+Just edit the .nuspec file in Solution items and run **nuget pack** inside the **ToreAurstadIT.LambdaParser** project.
+Feel free to fork the lib and make it your own. The goal here is to help developers in the C# community in achieving their tasks 
+in parsing a lambda expression written as a string into runnable code. 
+
+```bash
+cd ToreAurstadIT.LambdaParser
+nuget pack
+```
+
+Again, great work of zhucai in doing most of the grunt work here, I just merely polished the lib fixing some few issues.
 
 Last update 01.092.2021

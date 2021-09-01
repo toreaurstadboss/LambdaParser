@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ToreAurstadIT.LambdaParser")]
 [assembly: AssemblyDescription("string lambda code to lambda expression and compile to delegate")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("朱才")]
+[assembly: AssemblyCompany("ToreAurstadIT")]
 [assembly: AssemblyProduct("ToreAurstadIT.LambdaParser")]
-[assembly: AssemblyCopyright("Copyright © 2009 朱才")]
+[assembly: AssemblyCopyright("Copyright © 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
