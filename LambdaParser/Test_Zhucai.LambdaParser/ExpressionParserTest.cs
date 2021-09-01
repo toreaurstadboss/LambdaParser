@@ -1,13 +1,13 @@
-﻿using ToreAurstadIT.LambdaParser;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using ToreAurstadIT.LambdaParser.ObjectDynamicExtension;
 using Common;
+using ToreAurstadIT.LambdaParser;
+using ToreAurstadIT.LambdaParser.ObjectDynamicExtension;
 
-namespace Test_ToreAurstadIT.LambdaParser
+namespace Test_Zhucai.LambdaParser
 {
     [TestFixture]
     public class ExpressionParserTest
@@ -101,8 +101,8 @@ namespace Test_ToreAurstadIT.LambdaParser
         [Test]
         public void ParseDelegateTest_Member_Method_Ctor()
         {
-            string code = "()=>new Test_ToreAurstadIT.LambdaParser.TestClass(9,2).Member1";
-            string code2 = "()=>new Test_ToreAurstadIT.LambdaParser.TestClass(){Member1 = 5,Member2 = 4}.GetMemberAll()";
+            string code = "()=>new Test_Zhucai.LambdaParser.TestClass(9,2).Member1";
+            string code2 = "()=>new Test_Zhucai.LambdaParser.TestClass(){Member1 = 5,Member2 = 4}.GetMemberAll()";
 
             Func<int> func = ExpressionParser.Compile<Func<int>>(code);
             Func<int> func2 = ExpressionParser.Compile<Func<int>>(code2);
@@ -283,7 +283,7 @@ namespace Test_ToreAurstadIT.LambdaParser
         [Test]
         public void ParseDelegateTest_MemberInit()
         {
-            string code = "()=>new Test_ToreAurstadIT.LambdaParser.TestClass(){Member1 = 20}.ToString()";
+            string code = "()=>new Test_Zhucai.LambdaParser.TestClass(){Member1 = 20}.ToString()";
             string expected = "20";
 
             Func<string> func = ExpressionParser.Compile<Func<string>>(code);
@@ -840,36 +840,36 @@ namespace Test_ToreAurstadIT.LambdaParser
         public void ParseDelegateTest_Other()
         {
             {
-                string code = @"()=>new Test_ToreAurstadIT.LambdaParser.TestClass()
+                string code = @"()=>new Test_Zhucai.LambdaParser.TestClass()
                     {
                         Member1 = 3
-                    }.Member1 == 3 ? new Test_ToreAurstadIT.LambdaParser.TestClass[]
+                    }.Member1 == 3 ? new Test_Zhucai.LambdaParser.TestClass[]
                 {
-                    new Test_ToreAurstadIT.LambdaParser.TestClass()
+                    new Test_Zhucai.LambdaParser.TestClass()
                     {
                         Member1 = 3
                     }
-                }[4-4].Member1 + 3 * new Test_ToreAurstadIT.LambdaParser.TestClass()
+                }[4-4].Member1 + 3 * new Test_Zhucai.LambdaParser.TestClass()
                     {
                         Member2 = 5
-                    }.Member2 : new Test_ToreAurstadIT.LambdaParser.TestClass()
+                    }.Member2 : new Test_Zhucai.LambdaParser.TestClass()
                     {
                         Member2 = 5,
                         Member1 = 9,
                     }.GetMemberAll();";
-                int expected = new Test_ToreAurstadIT.LambdaParser.TestClass()
+                int expected = new Test_Zhucai.LambdaParser.TestClass()
                     {
                         Member1 = 3
-                    }.Member1 == 3 ? new Test_ToreAurstadIT.LambdaParser.TestClass[]
+                    }.Member1 == 3 ? new Test_Zhucai.LambdaParser.TestClass[]
                 {
-                    new Test_ToreAurstadIT.LambdaParser.TestClass()
+                    new Test_Zhucai.LambdaParser.TestClass()
                     {
                         Member1 = 3
                     }
-                }[4 - 4].Member1 + 3 * new Test_ToreAurstadIT.LambdaParser.TestClass()
+                }[4 - 4].Member1 + 3 * new Test_Zhucai.LambdaParser.TestClass()
                     {
                         Member2 = 5
-                    }.Member2 : new Test_ToreAurstadIT.LambdaParser.TestClass()
+                    }.Member2 : new Test_Zhucai.LambdaParser.TestClass()
                     {
                         Member2 = 5,
                         Member1 = 9,
@@ -880,36 +880,36 @@ namespace Test_ToreAurstadIT.LambdaParser
                 Assert.AreEqual(expected, actual);
             }
             {
-                string code = @"()=>new Test_ToreAurstadIT.LambdaParser.TestClass()
+                string code = @"()=>new Test_Zhucai.LambdaParser.TestClass()
                     {
                         Member1 = 3
-                    }.Member1 != 3 ? new Test_ToreAurstadIT.LambdaParser.TestClass[]
+                    }.Member1 != 3 ? new Test_Zhucai.LambdaParser.TestClass[]
                 {
-                    new Test_ToreAurstadIT.LambdaParser.TestClass()
+                    new Test_Zhucai.LambdaParser.TestClass()
                     {
                         Member1 = 3
                     }
-                }[new Test_ToreAurstadIT.LambdaParser.TestClass().Member1].Member1 + 3 * new Test_ToreAurstadIT.LambdaParser.TestClass()
+                }[new Test_Zhucai.LambdaParser.TestClass().Member1].Member1 + 3 * new Test_Zhucai.LambdaParser.TestClass()
                     {
                         Member2 = 5
-                    }.Member2 : new Test_ToreAurstadIT.LambdaParser.TestClass()
+                    }.Member2 : new Test_Zhucai.LambdaParser.TestClass()
                     {
                         Member2 = 5,
                         Member1 = 9,
                     }.GetMemberAll();";
-                int expected = new Test_ToreAurstadIT.LambdaParser.TestClass()
+                int expected = new Test_Zhucai.LambdaParser.TestClass()
                 {
                     Member1 = 3
-                }.Member1 != 3 ? new Test_ToreAurstadIT.LambdaParser.TestClass[]
+                }.Member1 != 3 ? new Test_Zhucai.LambdaParser.TestClass[]
                 {
-                    new Test_ToreAurstadIT.LambdaParser.TestClass()
+                    new Test_Zhucai.LambdaParser.TestClass()
                     {
                         Member1 = 3
                     }
-                }[new Test_ToreAurstadIT.LambdaParser.TestClass().Member1].Member1 + 3 * new Test_ToreAurstadIT.LambdaParser.TestClass()
+                }[new Test_Zhucai.LambdaParser.TestClass().Member1].Member1 + 3 * new Test_Zhucai.LambdaParser.TestClass()
                 {
                     Member2 = 5
-                }.Member2 : new Test_ToreAurstadIT.LambdaParser.TestClass()
+                }.Member2 : new Test_Zhucai.LambdaParser.TestClass()
                 {
                     Member2 = 5,
                     Member1 = 9,
