@@ -98,9 +98,11 @@ Just edit the .nuspec file in Solution items and run **nuget pack** inside the *
 Feel free to fork the lib and make it your own. The goal here is to help developers in the C# community in achieving their tasks 
 in parsing a lambda expression written as a string into runnable code. 
 
+(Make sure Nuget is added to project path) 
+
 ```bash
 cd ToreAurstadIT.LambdaParser
-nuget pack
+nuget pack ToreAurstadIT.Lambda.csproj -Prop Configuration=Release
 ```
 
 Again, great work of zhucai in doing most of the grunt work here, I just merely polished the lib fixing some few issues.

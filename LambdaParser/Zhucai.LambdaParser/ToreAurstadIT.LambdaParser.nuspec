@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ToreAurstadIT.LambdaParser</id>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <title>ToreAurstadIT.LambdaParser</title>
 	  <authors>Tore Aurstad IT</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
