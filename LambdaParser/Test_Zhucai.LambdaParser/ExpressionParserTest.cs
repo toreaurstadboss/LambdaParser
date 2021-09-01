@@ -92,7 +92,7 @@ namespace Test_Zhucai.LambdaParser
             }
         }
         /// <summary>
-        /// 字符串拼接和函数调用
+        /// String splicing and function call
         /// </summary>
         [Test]
         public void ParseDelegateTest_StringAdd()
@@ -137,7 +137,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// 泛型类
+        /// Generic class
         /// </summary>
         [Test]
         public void ParseDelegateTest_Generic()

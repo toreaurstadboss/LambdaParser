@@ -10,7 +10,7 @@ using ToreAurstadIT.LambdaParser;
 // From Lao Zhao blog：http://www.cnblogs.com/jeffreyzhao/archive/2009/01/09/dynamicpropertyaccessor-and-fasteval.html
 namespace Demo
 {
-    // 原类
+    // Original class
     public class DynamicPropertyAccessor
     {
         private Func<object, object> m_getter;
@@ -53,7 +53,7 @@ namespace Demo
         }
     }
 
-    // 新类
+    // New class
     public class NewDynamicPropertyAccessor
     {
         private Func<object, object> m_getter;

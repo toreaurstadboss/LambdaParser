@@ -55,11 +55,11 @@ namespace ToreAurstadIT.LambdaParser
         #endregion
 
 
-        #region ctor.构造函数
+        #region ctor.Constructor
 
         static ExpressionParserCore()
         {
-            // 初始化_operatorPriorityLevel
+            //initializationoperatorPriorityLevel
             _operatorPriorityLevel.Add("(", 100);
             _operatorPriorityLevel.Add(")", 100);
             _operatorPriorityLevel.Add("[", 100);
@@ -560,37 +560,37 @@ namespace ToreAurstadIT.LambdaParser
                     #region default:
                     default:
                         {
-                            // 头Char是字母或下划线
+                            // Head char is a letter or underscore
                             if (char.IsLetter(firstChar) || firstChar == '_' || firstChar == '$')
                             {
-                                // 默认实例的方法调用
+                                // By default instance method call
                                 if (_defaultInstanceType != null && _codeParser.PeekString() == "(")
                                 {
-                                    // 获取参数
+                                    //Get parameters
                                     List<Expression> listParam = ReadParams("(", false);
 
                                     MethodInfo methodInfo = _params[0].Type.GetMethod(val,
                                         listParam.ConvertAll<Type>(m => m.Type).ToArray());
                                     currentExpression = Expression.Call(_params[0], methodInfo, listParam.ToArray());
                                 }
-                                // 参数 or 类 or  默认实例的属性
+                                // Parameter OR Class OR Default Instance
                                 else
                                 {
                                     ParameterExpression parameter;
-                                    // 参数
+                                    //parameter
                                     if ((parameter = this._params.SingleOrDefault(m => m.Name == val))
                                         != null)
                                     {
                                         currentExpression = parameter;
                                     }
-                                    // 默认实例的属性
+                                    // Default instance properties
                                     else if (this._defaultInstanceType != null &&
                                         (this._defaultInstanceType.GetProperty(val) != null
                                             || this._defaultInstanceType.GetField(val) != null))
                                     {
                                         currentExpression = Expression.PropertyOrField(_params[0], val);
                                     }
-                                    // 类
+                                    //kind
                                     else
                                     {
                                         Type type = ReadType(val);
@@ -599,10 +599,10 @@ namespace ToreAurstadIT.LambdaParser
                                         string strMember = _codeParser.ReadString();
                                         string strOperator = _codeParser.PeekString();
 
-                                        // 静态方法
+                                        // Static method
                                         if (strOperator == "(")
                                         {
-                                            // 获取参数
+                                            //Get parameters
                                             List<Expression> listParam = ReadParams(strOperator, false);
 
                                             if (parameter != null)
@@ -618,7 +618,7 @@ namespace ToreAurstadIT.LambdaParser
                                                 currentExpression = Expression.Call(methodInfo, listParam.ToArray());
                                             }
                                         }
-                                        // 静态成员(PropertyOrField)
+                                        // Static member(PropertyOrField)
                                         else
                                         {
                                             if (parameter != null)
@@ -627,13 +627,13 @@ namespace ToreAurstadIT.LambdaParser
                                             }
                                             else
                                             {
-                                                // 先找属性
+                                                //Find attributes first
                                                 PropertyInfo propertyInfo = type.GetProperty(strMember, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
                                                 if (propertyInfo != null)
                                                 {
                                                     currentExpression = Expression.Property(null, propertyInfo);
                                                 }
-                                                // 没找到属性则找字段
+                                                //Find a field without finding the property
                                                 else
                                                 {
                                                     FieldInfo fieldInfo = type.GetField(strMember, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
@@ -648,7 +648,7 @@ namespace ToreAurstadIT.LambdaParser
                                     }
                                 }
                             }
-                            // 头Char不是字母或下划线
+                            // Head char is not a letter or underscore
                             else
                             {
                                 switch (firstChar)
@@ -1021,7 +1021,7 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 解析数字
+        /// Parsing numbers
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
@@ -1181,8 +1181,8 @@ namespace ToreAurstadIT.LambdaParser
         /// <summary>
         /// Get the priority of the operator, the higher the priority, the higher the priority
         /// </summary>
-        /// <param name="operatorSymbol">操作符</param>
-        /// <param name="isBefore">是否前置操作符(一元)</param>
+        /// <param name="operatorSymbol">Operator</param>
+        /// <param name="isBefore">Whether the front operator (one yuan)</param>
         /// <Returns> Priority </ RETURNS>
         static private int GetOperatorLevel(string operatorSymbol, bool isBefore)
         {
@@ -1410,7 +1410,7 @@ namespace ToreAurstadIT.LambdaParser
             Assembly[] listAssembly = AppDomain.CurrentDomain.GetAssemblies();
             foreach (Assembly assembly in listAssembly)
             {
-                if (assembly != Assembly.GetExecutingAssembly())  // 忽略当前程序集(ToreAurstadIT.LambdaParser)
+                if (assembly != Assembly.GetExecutingAssembly())  // Ignore the current assembly (Tore AurStad it.lambda Parser)
                 {
                     Type type = assembly.GetType(typeName, false, false);
                     if (type != null)

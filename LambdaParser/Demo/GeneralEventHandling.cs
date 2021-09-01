@@ -14,8 +14,8 @@ namespace Demo
     {
         static object GeneralHandler(params object[] args)
         {
-            Console.WriteLine("您的事件发生了说");
-            System.Windows.Forms.MessageBox.Show("您的事件发生了说");
+            Console.WriteLine("Your incident said");
+            System.Windows.Forms.MessageBox.Show("Your incident said");
             return null;
         }
 
@@ -59,7 +59,7 @@ namespace Demo
             LambdaExpression dynamicDelegateExp = Expression.Lambda(delegateType, lambdaBodyExp, paramsExp);
 
             //The expression we created is such a function:
-            //(委托的参数们) => GeneralHandler(new object[] { 委托的参数们 })
+            //(Participant) => GeneralHandler(new object[] {Entrusted parameters })
 
             //Compile
             Delegate dynamiceDelegate = dynamicDelegateExp.Compile();
@@ -68,7 +68,7 @@ namespace Demo
             targetEvent.AddEventHandler(target, dynamiceDelegate);
         }
 
-        // 新函数
+        //New function
         public static void NewAttachGeneralHandler(object target, EventInfo targetEvent)
         {
             // Entrust type of event response program
@@ -79,13 +79,13 @@ namespace Demo
             ParameterInfo[] parameters = invokeMethod.GetParameters();
 
             //The expression we created is such a function：
-            //(委托的参数们) => (返回值类型)GeneralHandler(new object[] { 委托的参数们 })
+            // (Party) => (Return value type) general handler (new object [] {delegated parameters})
             string lambdaCode = string.Format("({0})=>{1}GeneralEventHandling.GeneralHandler(new object[]{{{2}}})",
                 string.Join(",", parameters.Select(m => m.Name).ToArray()),
                 invokeMethod.ReturnType.Equals(typeof(void))?"":"("+invokeMethod.ReturnType.FullName+")",
                 string.Join(",", parameters.Select(m => m.Name).ToArray()));
 
-            Delegate dynamiceDelegate = ExpressionParser.Compile(delegateType, lambdaCode, "Demo"); // 最后一个参数Demo是命名空间
+            Delegate dynamiceDelegate = ExpressionParser.Compile(delegateType, lambdaCode, "Demo"); //The last parameter demo is a namespace
 
             //Finish!
             targetEvent.AddEventHandler(target, dynamiceDelegate);

@@ -164,12 +164,12 @@ namespace ToreAurstadIT.LambdaParser
             #region if (char.IsDigit(c))
             if (char.IsDigit(c))
             {
-                // 找下去
+                //Look down
                 for (this.Length = 1; (this.Length + this.Index) < this.Content.Length; this.Length++)
                 {
                     char cInner = this.Content[this.Index + this.Length];
 
-                    // 当char是点时，判断其后面的字符是否数字，若不是数字，则返回
+                    //When char is point, it is judged whether or not the characters behind it are numbers. If not numbers, return
                     if (cInner == '.')
                     {
                         char nextChar = this.Content[this.Index + this.Length + 1];
@@ -179,7 +179,7 @@ namespace ToreAurstadIT.LambdaParser
                         }
                     }
 
-                    // 当char不是数字、mdflx(表示各种数字类型如l表示long)时返回
+                    //When Char is not a number, MDFLX (indicating various digital types such as L represents long)
                     if ((!char.IsDigit(cInner)) && cInner != '.'
                         && cInner != 'M' && cInner != 'm'
                         && cInner != 'D' && cInner != 'd'

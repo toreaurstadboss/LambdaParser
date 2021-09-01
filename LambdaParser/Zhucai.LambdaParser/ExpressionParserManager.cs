@@ -11,19 +11,19 @@ namespace Zhucai.LambdaParser
 
         private Dictionary<CacheKey, Delegate> _dicCache = new Dictionary<CacheKey, Delegate>();
         /// <summary>
-        /// 将字符串形式的Lambda表达式解析，返回一个强类型委托。
-        /// 没有参数的情况下，可以省略()=>，但不建议省略。
-        /// </summary>
-        /// <typeparam name="TDelegate">委托类型</typeparam>
-        /// <param name="code">Lambda表达式代码。</param>
-        /// <param name="cache">是否缓存</param>
-        /// <returns></returns>
+ /// Analyze the Lambda expression in the form of strings to return a strong type delegate.
+        /// There is no parameter, it may be omitted () =>, but it is not recommended.
+        /// </ summary>
+        /// <typeparam name = "tdlegate"> Entrusted type </ typeParam>
+        /// <param name = "code"> Lambda expression code. </ param>
+        /// <param name = "cache"> Whether to cache </ param>
+        /// <returns> </ returns>
         static public TDelegate ParseDelegate<TDelegate>(string code, bool cache)
         {
             CacheKey key = null;
             if (cache)
             {
-                // 从缓存里取
+           // take it from the cache
                 Delegate dele;
                 Type type = typeof(TDelegate);
                 key = new CacheKey(type, code);
@@ -33,7 +33,7 @@ namespace Zhucai.LambdaParser
                 }
             }
 
-            // 缓存没有则创建
+          // Cache is not created
             ExpressionParser<TDelegate> parser = new ExpressionParser<TDelegate>(code);
             Expression<TDelegate> expressionDele = parser.ToExpression();
             TDelegate tDele = expressionDele.Compile();
@@ -43,18 +43,17 @@ namespace Zhucai.LambdaParser
                 // 并加入缓存
                 lock (_dicCache)
                 {
-                    // 由于这里lock得不严格，所以可能会重复添加，若用Add方法则可能出异常
+                    // Since the LOCK is not strict, it may be added repeatedly. If you use the ADD method, you may have an exception.
                     _dicCache[key] = tDele as Delegate;
                 }
             }
             return tDele;
         }
         /// <summary>
-        /// 将字符串形式的Lambda表达式解析，返回一个强类型委托。
-        /// 没有参数的情况下，可以省略()=>
-        /// <typeparam name="TDelegate">委托类型</typeparam>
-        /// <param name="code">Lambda表达式代码。</param>
-        /// <returns></returns>
+/// Analyze the Lambda expression in the form of strings to return a strong type delegate.
+        /// There is no parameter, you can omit () =>
+        /// <typeparam name = "tdlegate"> Entrusted type </ typeParam>
+        /// <param name = "code"> Lambda expression code. </ param>        /// <returns></returns>
         static public TDelegate ParseDelegate<TDelegate>(string code)
         {
             return ParseDelegate<TDelegate>(code, false);
