@@ -14,74 +14,74 @@ namespace ToreAurstadIT.LambdaParser
         #region all Parse()
 
         /// <summary>
-        /// 解析Lambda表达式代码
-        /// </summary>
-        /// <param name="lambdaCode">lambda表达式代码。如：m=>m.ToString()</param>
-        /// <param name="namespaces">命名空间集</param>
+       /// Analyze Lambda Expression Code
+        /// </ summary>
+        /// <param name = "lambda code"> Lambda expression code. Such as: m => m.to string () </ param>
+        /// <param name = "namespaces"> Namespace set </ param>
         static public LambdaExpression Parse(string lambdaCode, params string[] namespaces)
         {
             return ParseCore<Delegate>(null, lambdaCode, null, false,null, namespaces);
         }
 
         /// <summary>
-        /// 解析Lambda表达式代码
-        /// </summary>
-        /// <param name="lambdaCode">lambda表达式代码。如：m=>m.ToString()</param>
-        /// <param name="namespaces">命名空间集</param>
+      /// Analyze Lambda Expression Code
+        /// </ summary>
+        /// <param name = "lambda code"> Lambda expression code. Such as: m => m.to string () </ param>
+        /// <param name = "namespaces"> Namespace set </ param>
         static public LambdaExpression Parse(string lambdaCode, Type defaultInstance, params string[] namespaces)
         {
             return ParseCore<Delegate>(null, lambdaCode, defaultInstance, false,null, namespaces);
         }
 
         /// <summary>
-        /// 解析Lambda表达式代码
-        /// </summary>
-        /// <param name="lambdaCode">lambda表达式代码。如：m=>m.ToString()</param>
-        /// <param name="namespaces">命名空间集</param>
+     /// Analyze Lambda Expression Code
+        /// </ summary>
+        /// <param name = "lambda code"> Lambda expression code. Such as: m => m.to string () </ param>
+        /// <param name = "namespaces"> Namespace set </ param>
         static public LambdaExpression Parse(string lambdaCode, Type defaultInstance,Type[] paramTypes, params string[] namespaces)
         {
             return ParseCore<Delegate>(null, lambdaCode, defaultInstance, false, paramTypes, namespaces);
         }
 
         /// <summary>
-        /// 解析Lambda表达式代码
-        /// </summary>
-        /// <param name="lambdaCode">lambda表达式代码。如：m=>m.ToString()</param>
-        /// <param name="delegateType">委托类型</param>
-        /// <param name="firstTypeIsDefaultInstance">是否第一个类型是默认实例</param>
-        /// <param name="namespaces">命名空间集</param>
+        /// Analyze Lambda Expression Code
+        /// </ summary>
+        /// <param name = "lambda code"> Lambda expression code. Such as: m => m.to string () </ param>
+        /// <param name = "delegate Type"> Entrusted type </ param>
+        /// <param name = "first type is default instance"> Whether the first type is the default instance </ param>
+        /// <param name = "namespaces"> Namespace set </ param>
         static public LambdaExpression Parse(Type delegateType, string lambdaCode, params string[] namespaces)
         {
             return ParseCore<Delegate>(delegateType, lambdaCode, null, false,null, namespaces);
         }
 
-        /// <summary>
-        /// 解析Lambda表达式代码
-        /// </summary>
-        /// <param name="lambdaCode">lambda表达式代码。如：m=>m.ToString()</param>
-        /// <param name="delegateType">委托类型</param>
-        /// <param name="firstTypeIsDefaultInstance">是否第一个类型是默认实例</param>
-        /// <param name="namespaces">命名空间集</param>
+       /// <summary>
+        /// Analyze Lambda Expression Code
+        /// </ summary>
+        /// <param name = "lambda code"> Lambda expression code. Such as: m => m.to string () </ param>
+        /// <param name = "delegate Type"> Entrusted type </ param>
+        /// <param name = "first type is default instance"> Whether the first type is the default instance </ param>
+        /// <param name = "namespaces"> Namespace set </ param>
         static public LambdaExpression Parse(Type delegateType, string lambdaCode, bool firstTypeIsDefaultInstance, params string[] namespaces)
         {
             return ParseCore<Delegate>(delegateType, lambdaCode, null, firstTypeIsDefaultInstance, null, namespaces);
         }
 
         /// <summary>
-        /// 解析Lambda表达式代码
-        /// </summary>
-        /// <param name="lambdaCode">lambda表达式代码。如：m=>m.ToString()</param>
-        /// <param name="namespaces">命名空间集</param>
+       /// Analyze Lambda Expression Code
+        /// </ summary>
+        /// <param name = "lambda code"> Lambda expression code. Such as: m => m.to string () </ param>
+        /// <param name = "namespaces"> Namespace set </ param>
         static public Expression<TDelegate> Parse<TDelegate>(string lambdaCode, params string[] namespaces)
         {
             return (Expression<TDelegate>)ParseCore<TDelegate>(null, lambdaCode, null, false, null, namespaces);
         }
 
         /// <summary>
-        /// 解析Lambda表达式代码
-        /// </summary>
-        /// <param name="lambdaCode">lambda表达式代码。如：m=>m.ToString()</param>
-        /// <param name="namespaces">命名空间集</param>
+       /// Analyze Lambda Expression Code
+        /// </ summary>
+        /// <param name = "lambda code"> Lambda expression code. Such as: m => m.to string () </ param>
+        /// <param name = "namespaces"> Namespace set </ param>
         static public Expression<TDelegate> Parse<TDelegate>(string lambdaCode, bool firstTypeIsDefaultInstance, params string[] namespaces)
         {
             return (Expression<TDelegate>)ParseCore<TDelegate>(null, lambdaCode, null, firstTypeIsDefaultInstance, null, namespaces);
@@ -91,64 +91,64 @@ namespace ToreAurstadIT.LambdaParser
 
         #region all Compile()
 
-        /// <summary>
-        /// 解析Lambda表达式代码并编译成委托
-        /// </summary>
-        /// <param name="lambdaCode">lambda表达式代码。如：m=>m.ToString()</param>
-        /// <param name="namespaces">命名空间集</param>
+       /// <summary>
+        /// Analyze the lambda expression code and compile into commission
+        /// </ summary>
+        /// <param name = "lambda code"> Lambda expression code. Such as: m => m.to string () </ param>
+        /// <param name = "namespaces"> Namespace set </ param>
         static public Delegate Compile(string lambdaCode, params string[] namespaces)
         {
             return Parse(lambdaCode, namespaces).Compile();
         }
 
-        /// <summary>
-        /// 解析Lambda表达式代码并编译成委托
-        /// </summary>
-        /// <param name="lambdaCode">lambda表达式代码。如：m=>m.ToString()</param>
-        /// <param name="namespaces">命名空间集</param>
+    /// <summary>
+        /// Analyze the lambda expression code and compile into commission
+        /// </ summary>
+        /// <param name = "lambda code"> Lambda expression code. Such as: m => m.to string () </ param>
+        /// <param name = "namespaces"> Namespace set </ param>
         static public Delegate Compile(string lambdaCode, Type defaultInstance, params string[] namespaces)
         {
             return Parse(lambdaCode, defaultInstance, namespaces).Compile();
         }
 
-        /// <summary>
-        /// 解析Lambda表达式代码并编译成委托
-        /// </summary>
-        /// <param name="lambdaCode">lambda表达式代码。如：m=>m.ToString()</param>
-        /// <param name="delegateType">委托类型</param>
-        /// <param name="namespaces">命名空间集</param>
+     /// <summary>
+        /// Analyze the lambda expression code and compile into commission
+        /// </ summary>
+        /// <param name = "lambda code"> Lambda expression code. Such as: m => m.to string () </ param>
+        /// <param name = "delegate Type"> Entrusted type </ param>
+        /// <param name = "namespaces"> Namespace set </ param>
         static public Delegate Compile(Type delegateType, string lambdaCode, params string[] namespaces)
         {
             return Parse(delegateType, lambdaCode, namespaces).Compile();
         }
 
         /// <summary>
-        /// 解析Lambda表达式代码并编译成委托
-        /// </summary>
-        /// <param name="lambdaCode">lambda表达式代码。如：m=>m.ToString()</param>
-        /// <param name="delegateType">委托类型</param>
-        /// <param name="firstTypeIsDefaultInstance">是否第一个类型是默认实例</param>
-        /// <param name="namespaces">命名空间集</param>
+      /// Analyze the lambda expression code and compile into commission
+        /// </ summary>
+        /// <param name = "lambda code"> Lambda expression code. Such as: m => m.to string () </ param>
+        /// <param name = "delegate Type"> Entrusted type </ param>
+        /// <param name = "first type is default instance"> Whether the first type is the default instance </ param>
+        /// <param name = "namespaces"> Namespace set </ param>
         static public Delegate Compile(Type delegateType, string lambdaCode, bool firstTypeIsDefaultInstance, params string[] namespaces)
         {
             return Parse(delegateType, lambdaCode, firstTypeIsDefaultInstance, namespaces).Compile();
         }
 
-        /// <summary>
-        /// 解析Lambda表达式代码并编译成委托
-        /// </summary>
-        /// <param name="lambdaCode">lambda表达式代码。如：m=>m.ToString()</param>
-        /// <param name="namespaces">命名空间集</param>
+    /// <summary>
+        /// Analyze the lambda expression code and compile into commission
+        /// </ summary>
+        /// <param name = "lambda code"> Lambda expression code. Such as: m => m.to string () </ param>
+        /// <param name = "namespaces"> Namespace set </ param>
         static public TDelegate Compile<TDelegate>(string lambdaCode, params string[] namespaces)
         {
             return Parse<TDelegate>(lambdaCode, namespaces).Compile();
         }
 
-        /// <summary>
-        /// 解析Lambda表达式代码
-        /// </summary>
-        /// <param name="lambdaCode">lambda表达式代码。如：m=>m.ToString()</param>
-        /// <param name="namespaces">命名空间集</param>
+       /// <summary>
+        /// Analyze Lambda Expression Code
+        /// </ summary>
+        /// <param name = "lambda code"> Lambda expression code. Such as: m => m.to string () </ param>
+        /// <param name = "namespaces"> Namespace set </ param>
         static public TDelegate Compile<TDelegate>(string lambdaCode, bool firstTypeIsDefaultInstance, params string[] namespaces)
         {
             return Parse<TDelegate>(lambdaCode, firstTypeIsDefaultInstance, namespaces).Compile();
@@ -158,15 +158,15 @@ namespace ToreAurstadIT.LambdaParser
 
         #region all Exec()
 
-        /// <summary>
-        /// 以instance为上下文，执行代码
-        /// ($0表示instance，(可省略$0)；$1表示objects的第一个对象；$2表示objects的第二个对象....)
-        /// </summary>
-        /// <typeparam name="T">返回的结果类型</typeparam>
-        /// <param name="instance">执行代码以此对象为上下文(在code中用$0表示，$0可省略)</param>
-        /// <param name="code">被执行代码</param>
-        /// <param name="namespaces">引入命名空间</param>
-        /// <param name="objects">参数对象</param>
+     /// <summary>
+        /// With instance as context, execute code
+        /// ($ 0 indicates instance, ($ 0 can be omitted); $ 1 indicates the first object of Objects; $ 2 indicates the second object of Objects ....)
+        /// </ summary>
+        /// <typeParam name = "t"> Return the result type </ typeParam>
+        /// <param name = "instance"> Execute the code with this object as context (with $ 0 in CODE, $ 0 can be omitted) </ param>
+        /// <param name = "code"> Executed code </ param>
+        /// <param name = "namespaces"> Introduced namespace </ param>
+        /// <param name = "objects"> Parameter object </ param>
         /// <returns></returns>
         static public T Exec<T>(object instance, string code, string[] namespaces, params object[] objects)
         {
@@ -187,15 +187,15 @@ namespace ToreAurstadIT.LambdaParser
             return (T)Parse(newCode, instance.GetType(), paramTypes, namespaces).Compile().DynamicInvoke(inputObjs);
         }
         
-        /// <summary>
-        /// 以instance为上下文，执行代码
-        /// ($0表示instance，(可省略$0)；$1表示objects的第一个对象；$2表示objects的第二个对象....)
-        /// </summary>
-        /// <param name="instance">执行代码以此对象为上下文(在code中用$0表示，$0可省略)</param>
-        /// <param name="code">被执行代码</param>
-        /// <param name="namespaces">引入命名空间</param>
-        /// <param name="objects">参数对象</param>
-        /// <returns></returns>
+     /// <summary>
+        /// With instance as context, execute code
+        /// ($ 0 indicates instance, ($ 0 can be omitted); $ 1 indicates the first object of Objects; $ 2 indicates the second object of Objects ....)
+        /// </ summary>
+        /// <param name = "instance"> Execute the code with this object as context (with $ 0 in CODE, $ 0 can be omitted) </ param>
+        /// <param name = "code"> Executed code </ param>
+        /// <param name = "namespaces"> Introduced namespace </ param>
+        /// <param name = "objects"> Parameter object </ param>
+        /// <returns> </ returns>
         static public object Exec(object instance, string code, string[] namespaces, params object[] objects)
         {
             return Exec<object>(instance, code, namespaces, objects);
@@ -205,11 +205,11 @@ namespace ToreAurstadIT.LambdaParser
 
         #region private method.内部方法
 
-        /// <summary>
-        /// 解析Lambda表达式代码
-        /// </summary>
-        /// <param name="lambdaCode">lambda表达式代码。如：m=>m.ToString()</param>
-        /// <param name="namespaces">命名空间集</param>
+      /// <summary>
+        /// Analyze Lambda Expression Code
+        /// </ summary>
+        /// <param name = "lambda code"> Lambda expression code. Such as: m => m.to string () </ param>
+        /// <param name = "namespaces"> Namespace set </ param>
         static private LambdaExpression ParseCore<TDelegate>(Type delegateType, string lambdaCode, Type defaultInstanceType, bool firstTypeIsDefaultInstance,Type[] paramTypes, params string[] namespaces)
         {
             ExpressionParserCore<TDelegate> parser = new ExpressionParserCore<TDelegate>(delegateType, lambdaCode, defaultInstanceType,paramTypes, firstTypeIsDefaultInstance);

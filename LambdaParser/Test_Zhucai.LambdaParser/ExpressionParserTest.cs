@@ -13,7 +13,7 @@ namespace Test_Zhucai.LambdaParser
     public class ExpressionParserTest
     {
         /// <summary>
-        /// 数字运算
+        /// Digital operation
         /// </summary>
         [Test]
         public void ParseDelegateTest_Number()
@@ -39,7 +39,7 @@ namespace Test_Zhucai.LambdaParser
                 Assert.AreEqual(expected, actual);
             }
             {
-                // 在无参数的情况下可以省略()=>
+                // In the case of parameters, it can be omitted()=>
                 string code = "2 + 3 * 4 / 2 - 4 % (2 + 1) + 32 - 43 * (6 - 4) + 3.3";
                 double expected = 2 + 3 * 4 / 2 - 4 % (2 + 1) + 32 - 43 * (6 - 4) + 3.3;
 
@@ -96,8 +96,8 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// 成员访问，方法调用，构造函数(传参)
-        /// </summary>
+        /// Member access, method call, constructor (transmission)
+        /// </ summary>
         [Test]
         public void ParseDelegateTest_Member_Method_Ctor()
         {
@@ -113,7 +113,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(actual, actual2);
         }
         /// <summary>
-        /// 委托传多个参数
+        ///Entrusted multiple parameters
         /// </summary>
         [Test]
         public void ParseDelegateTest_MultiLambdaParam()
@@ -149,7 +149,7 @@ namespace Test_Zhucai.LambdaParser
             }
         }
         /// <summary>
-        /// 泛型类
+        /// Generic class
         /// </summary>
         [Test]
         public void ParseDelegateTest_GenericList()
@@ -171,7 +171,7 @@ namespace Test_Zhucai.LambdaParser
             }
         }
         /// <summary>
-        /// 测试Nullable
+        ///Test Nullable
         /// </summary>
         [Test]
         public void ParseDelegateTest_Nullable()
@@ -202,7 +202,7 @@ namespace Test_Zhucai.LambdaParser
             }
         }
         /// <summary>
-        /// new数组，数组访问
+        /// NEW array, array access
         /// </summary>
         [Test]
         public void ParseDelegateTest_Array()
@@ -215,7 +215,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// new数组，数组访问2
+        /// NEW array, array access 2
         /// </summary>
         [Test]
         public void ParseDelegateTest_Array2()
@@ -238,7 +238,7 @@ namespace Test_Zhucai.LambdaParser
         //    Assert.AreEqual(expected, actual);
         //}
         /// <summary>
-        /// new多维数组
+        ///New multi-dimensional array
         /// </summary>
         [Test]
         public void ParseDelegateTest_ArrayMultiRank()
@@ -251,7 +251,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// 索引器访问
+        /// Indexer Access
         /// </summary>
         [Test]
         public void ParseDelegateTest_Indexer()
@@ -264,7 +264,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// 重复生成
+        /// Repeat generation
         /// </summary>
         [Test]
         public void ParseDelegateTest_Repeater()
@@ -278,7 +278,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// 成员初始化
+        ///Member initialization
         /// </summary>
         [Test]
         public void ParseDelegateTest_MemberInit()
@@ -291,7 +291,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// 测试操作符typeof,sizeof
+        /// Test operator TypeOf, Sizeof
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorTypeofSizeof()
@@ -304,7 +304,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// 测试操作符!
+        /// Test operator!
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorNot()
@@ -317,7 +317,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// 测试操作符~
+        /// Test operator ~
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorBitNot()
@@ -330,7 +330,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// 测试操作符convert()
+        /// Test operator Convert ()
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorConvert()
@@ -343,7 +343,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// 测试操作符＞＞,＜＜
+        ///Test operator >>, <<
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorBitShift()
@@ -356,7 +356,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// 测试操作符＞
+        /// Test operator>
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorGreaterThan()
@@ -387,7 +387,7 @@ namespace Test_Zhucai.LambdaParser
             }
         }
         /// <summary>
-        /// 测试操作符＜
+        /// Test operator <
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorLessThan()
@@ -418,7 +418,7 @@ namespace Test_Zhucai.LambdaParser
             }
         }
         /// <summary>
-        /// 测试操作符＜=
+        /// Test operator <=
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorLessThanOrEqual()
@@ -449,7 +449,7 @@ namespace Test_Zhucai.LambdaParser
             }
         }
         /// <summary>
-        /// 测试操作符＞=
+        ///Test operator> =
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorGreaterThanOrEqual()
@@ -480,7 +480,7 @@ namespace Test_Zhucai.LambdaParser
             }
         }
         /// <summary>
-        /// 测试操作符==
+        ///Test operator ==
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorEqual()
@@ -514,7 +514,7 @@ namespace Test_Zhucai.LambdaParser
     
 
         /// <summary>
-        /// 测试操作符==
+        /// Test operator ==
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorWithModelInstanceEqual()
@@ -536,7 +536,7 @@ namespace Test_Zhucai.LambdaParser
         }
 
         /// <summary>
-        /// 测试操作符!=
+        ///Test operator! =
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorNotEqual()
@@ -567,7 +567,7 @@ namespace Test_Zhucai.LambdaParser
             }
         }
         /// <summary>
-        /// 测试操作符is
+        ///Test operator IS
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorIs()
@@ -590,7 +590,7 @@ namespace Test_Zhucai.LambdaParser
             }
         }
         /// <summary>
-        /// 测试操作符as
+        /// Test operator AS
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorAs()
@@ -613,7 +613,7 @@ namespace Test_Zhucai.LambdaParser
             }
         }
         /// <summary>
-        /// 测试操作符^
+        /// Test operator ^
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorExclusiveOr()
@@ -626,7 +626,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// 测试操作符&
+        /// Test operator &
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorAnd()
@@ -639,7 +639,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// 测试操作符|
+        /// Test operator |
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorOr()
@@ -652,7 +652,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// 测试操作符&&
+        /// Test operator &&
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorAndAlso()
@@ -683,7 +683,7 @@ namespace Test_Zhucai.LambdaParser
             }
         }
         /// <summary>
-        /// 测试操作符||
+        /// Test operator ||
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorOrElse()
@@ -714,7 +714,7 @@ namespace Test_Zhucai.LambdaParser
             }
         }
         /// <summary>
-        /// 测试操作符?:
+        /// Test operator?:
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorCondition()
@@ -737,7 +737,7 @@ namespace Test_Zhucai.LambdaParser
             }
         }
         /// <summary>
-        /// 测试操作符??
+        ///Test operator??
         /// </summary>
         [Test]
         public void ParseDelegateTest_OperatorDoubleQuestionMark()
@@ -755,7 +755,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
-        /// 测试namespace
+        /// Test Namespace
         /// </summary>
         [Test]
         public void ParseDelegateTest_Namespace()
@@ -766,7 +766,7 @@ namespace Test_Zhucai.LambdaParser
             Assert.AreEqual(0, actual);
         }
         /// <summary>
-        /// 测试默认实例
+        ///Test default instance
         /// </summary>
         [Test]
         public void ParseDelegateTest_DefaultInstance()
@@ -791,7 +791,7 @@ namespace Test_Zhucai.LambdaParser
             }
         }
         /// <summary>
-        /// 测试Exec方法
+        /// Test EXEC method
         /// </summary>
         [Test]
         public void ParseDelegateTest_DefaultExec()
@@ -834,7 +834,7 @@ namespace Test_Zhucai.LambdaParser
         }
 
         /// <summary>
-        /// 测试一个复杂代码
+        ///Test a complex code
         /// </summary>
         [Test]
         public void ParseDelegateTest_Other()

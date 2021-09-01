@@ -8,10 +8,10 @@ using System.Globalization;
 
 namespace ToreAurstadIT.LambdaParser
 {
-    /// <summary>
-    /// Lambda表达式的解析器核心类
-    /// </summary>
-    /// <typeparam name="TDelegate"></typeparam>
+   /// <summary>
+    /// Lambda expression parser core class
+    /// </ summary>
+    /// <typeparam name = "tdlegate"> </ typeparam>
     internal class ExpressionParserCore<TDelegate>
     {
         #region fields.字段
@@ -27,28 +27,28 @@ namespace ToreAurstadIT.LambdaParser
 
         private bool _firstTypeIsDefaultInstance;
 
-        /// <summary>
-        /// 存放参数
-        /// </summary>
+      /// <summary>
+        /// store parameters
+        /// </ summary>
         private List<ParameterExpression> _params = new List<ParameterExpression>();
 
-        /// <summary>
-        /// 存放操作符的优先级
-        /// </summary>
+    /// <summary>
+        /// Store the priority of the operator
+        /// </ summary>
         static private Dictionary<string, int> _operatorPriorityLevel = new Dictionary<string, int>();
 
-        /// <summary>
-        /// 存放数字类型的隐式转换级别
-        /// </summary>
+      /// <summary>
+        /// Store the implicit conversion level of the digital type
+        /// </ summary>
         static private Dictionary<Type, int> _numberTypeLevel = new Dictionary<Type, int>();
 
         #endregion
 
 
-        #region properties.属性
+        #region properties.Attributes
 
         /// <summary>
-        /// 引入的命名空间集。
+/// Introduced namespace set.
         /// </summary>
         public List<string> Namespaces { get; private set; }
 
@@ -132,10 +132,10 @@ namespace ToreAurstadIT.LambdaParser
             _numberTypeLevel.Add(typeof(decimal), 10);
         }
 
-        /// <summary>
-        /// 构造Lambda表达式的解析器
-        /// </summary>
-        /// <param name="code">lambda表达式代码。如：m=>m.ToString()</param>
+     /// <summary>
+        /// Construct the parser of Lambda expression
+        /// </ summary>
+        /// <param name = "code"> Lambda expression code. Such as: m => m.to string () </ param>
         internal ExpressionParserCore(Type delegateType,string code,  Type defaultInstanceType, Type[] paramTypes, bool firstTypeIsDefaultInstance)
         {
             if (code == null)
@@ -157,7 +157,7 @@ namespace ToreAurstadIT.LambdaParser
                 this._delegateType = typeof(TDelegate);
             }
 
-            // 判断是否有指定具体的委托类型
+          // Judgment No to specify a specific delegation type
             if (firstTypeIsDefaultInstance && this._delegateType.IsSubclassOf(typeof(MulticastDelegate)))
             {
                 MethodInfo methodInfo = _delegateType.GetMethod("Invoke");
@@ -175,7 +175,7 @@ namespace ToreAurstadIT.LambdaParser
             {
                 _defaultInstanceParam = Expression.Parameter(this._defaultInstanceType, "___DefaultInstanceParam");
 
-                // 添加默认参数
+              // Add a default parameter
                 this._params.Insert(0, this._defaultInstanceParam);
             }
         }
@@ -183,15 +183,15 @@ namespace ToreAurstadIT.LambdaParser
         #endregion
 
 
-        #region method.方法
+        #region method.method
 
         /// <summary>
-        /// 转换成LambdaExpression
+        ///Convert intoLambdaExpression
         /// </summary>
         /// <returns></returns>
         public LambdaExpression ToLambdaExpression()
         {
-            // 获取委托的参数类型
+            // Get the parameter type of the commission
             if (this._paramTypes == null)
             {
                 MethodInfo methodInfo = _delegateType.GetMethod("Invoke");
@@ -207,7 +207,7 @@ namespace ToreAurstadIT.LambdaParser
                 paramIndexPrefix = 1;
             }
 
-            // 检查是否有lambda前置符(如:m=>)
+            //Check if there is a lambda pre-character (such as: m =>)
             string val = _codeParser.ReadString();
             bool hasLambdaPre = false;
             if (val == "(")
@@ -220,7 +220,7 @@ namespace ToreAurstadIT.LambdaParser
                     {
                         hasLambdaPre = true;
 
-                        // 解析参数
+                        //Parsing parameters
                         string[] paramsName = bracketContent.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                         for (int i = 0; i < paramsName.Length; i++)
                         {
@@ -248,7 +248,7 @@ namespace ToreAurstadIT.LambdaParser
             }
             else if (char.IsLetter(val[0]) || val[0] == '_')
             {
-                // 解析参数
+                // Parsing parameters
                 string lambdaOperator = _codeParser.ReadString();
                 if (lambdaOperator == "=>")
                 {
@@ -257,7 +257,7 @@ namespace ToreAurstadIT.LambdaParser
                 }
             }
 
-            // 若没有lambda前置符(如:m=>)，则恢复_parser到初始状态
+            // Recover the Parser to the initial status if there is no Lambda preamble (such as: m =>)
             if (!hasLambdaPre)
             {
                 _codeParser.RevertPosition();
@@ -266,12 +266,12 @@ namespace ToreAurstadIT.LambdaParser
             bool isCloseWrap;
             Expression expression = ReadExpression(0, null, out isCloseWrap);
 
-            // 具体的Delegate
+            // Specific delegate
             if (this._delegateType.IsSubclassOf(typeof(MulticastDelegate)))
             {
                 return Expression.Lambda(_delegateType, expression, this._params.ToArray());
             }
-            // 不具体的Delegate
+            //Not specific delegate
             else
             {
                 return Expression.Lambda(expression, this._params.ToArray());
@@ -279,15 +279,15 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 读取Expression。可能会引发递归。
+        /// Read Expression. May cause recursive。
         /// </summary>
-        /// <param name="priorityLevel">当前操作的优先级</param>
-        /// <param name="wrapStart">括号开始符(如果有)</param>
-        /// <param name="isClosedWrap">是否遇到符号结束符</param>
+        /// <param name = "priority level"> Priority of the current operation </ param>
+        /// <param name = "wrap start"> Brand start (if any) </ param>
+        /// <param name = "is closed wrap"> Does the symbol end value </ param>
         /// <returns></returns>
         private Expression ReadExpression(int priorityLevel, string wrapStart, out bool isClosedWrap)
         {
-            // 初始化
+            // initialization
             isClosedWrap = false;
             string val = this._codeParser.ReadString();
             if (val == null)
@@ -297,18 +297,18 @@ namespace ToreAurstadIT.LambdaParser
             char firstChar = val[0];
             Expression currentExpression = null;
 
-            /********************** (Start) 第一次读取，一元操作或一个对象 **************************/
-            // 数字
+            /********************** (Start)First reading, one yuan operation or an object **************************/
+            // number
             if (char.IsDigit(firstChar))
             {
-                // 数字解析
+                // Digital analysis
                 object constVal = ParseNumber(val);
                 currentExpression = Expression.Constant(constVal);
             }
-            // 非数字
+            // Non-numeric
             else
             {
-                // 字母或字符
+               // letter or character
                 switch (val)
                 {
                     #region case "null":
@@ -359,26 +359,26 @@ namespace ToreAurstadIT.LambdaParser
                     #region case "new":
                     case "new":
                         {
-                            // 获取类型
+                            //Get type
                             Type type = ReadType(_codeParser.ReadString());
 
-                            // 是否数组
+                            // is there an array
                             string bracketStart = _codeParser.ReadString();
                             if (bracketStart == "(")
                             {
-                                // 获取参数
+                                // Get parameters
                                 List<Expression> listParam = ReadParams("(", true);
 
-                                // 获取构造函数
+                                // Get constructor
                                 ConstructorInfo constructor = type.GetConstructor(listParam.ConvertAll<Type>(m => m.Type).ToArray());
                                 currentExpression = Expression.New(constructor, listParam);
 
-                                // 成员初始化/集合初始化
+                                // Member initialization / set initialization
                                 if (_codeParser.PeekString() == "{")
                                 {
                                     _codeParser.ReadString();
 
-                                    // 测试到底是:成员初始化or集合初始化
+                                    // The test is: member initialization OR set initialization
                                     var position = _codeParser.SavePosition();
                                     string str = _codeParser.ReadString();
                                     if (str != "}")
@@ -386,7 +386,7 @@ namespace ToreAurstadIT.LambdaParser
                                         bool isMemberInit = (_codeParser.ReadString() == "=");
                                         _codeParser.RevertPosition(position);
 
-                                        // 成员初始化
+                                        // Member initialization
                                         if (isMemberInit)
                                         {
                                             List<MemberBinding> listMemberBinding = new List<MemberBinding>();
@@ -399,7 +399,7 @@ namespace ToreAurstadIT.LambdaParser
                                                 MemberBinding memberBinding = Expression.Bind(memberInfo, ReadExpression(0, wrapStart, out isClosedWrap));
                                                 listMemberBinding.Add(memberBinding);
 
-                                                // 逗号
+                                                // comma
                                                 string comma = _codeParser.ReadString();
                                                 if (comma == "}")
                                                 {
@@ -409,7 +409,7 @@ namespace ToreAurstadIT.LambdaParser
                                             }
                                             currentExpression = Expression.MemberInit((NewExpression)currentExpression, listMemberBinding);
                                         }
-                                        // 集合初始化
+                                        // Collection initialization
                                         else
                                         {
                                             List<Expression> listExpression = new List<Expression>();
@@ -417,7 +417,7 @@ namespace ToreAurstadIT.LambdaParser
                                             {
                                                 listExpression.Add(ReadExpression(0, wrapStart, out isClosedWrap));
 
-                                                // 逗号
+                                                //comma
                                                 string comma = _codeParser.ReadString();
                                                 if (comma == "}")
                                                 {
@@ -434,7 +434,7 @@ namespace ToreAurstadIT.LambdaParser
                             {
                                 string nextStr = _codeParser.PeekString();
 
-                                // 读[]里的长度
+                                // Reading []
                                 List<Expression> listLen = new List<Expression>();
                                 if (nextStr == "]")
                                 {
@@ -445,7 +445,7 @@ namespace ToreAurstadIT.LambdaParser
                                     listLen = ReadParams("[", true);
                                 }
 
-                                // 读{}里的数组初始化
+                                // The array initialization in {}
                                 string start = _codeParser.PeekString();
                                 if (start == "{")
                                 {
@@ -467,7 +467,7 @@ namespace ToreAurstadIT.LambdaParser
 
                     #region case "+":
                     case "+":
-                        // 忽略前置+
+                        // Ignore preamp +
                         return ReadExpression(priorityLevel, wrapStart, out isClosedWrap);
                     #endregion
 
@@ -496,17 +496,17 @@ namespace ToreAurstadIT.LambdaParser
                             string str = GetBracketString(true);
                             Type type = GetType(str);
 
-                            // 找到类型，作为类型转换处理
+                            // Find type, as type conversion processing
                             if (type != null)
                             {
                                 currentExpression = Expression.Convert(ReadExpression(GetOperatorLevel("convert()", true), wrapStart, out isClosedWrap), type);
                             }
-                            // 未找到类型，作为仅用来优先处理
+                            // No type is found, as used for priority
                             else
                             {
                                 _codeParser.RevertPosition(position);
 
-                                // 分配一个新的isClosedWrap变量
+                                //Assign a new IS CLOSED WRAP variable
                                 bool newIsClosedWrap;
                                 currentExpression = ReadExpression(0, val, out newIsClosedWrap);
                             }
@@ -517,7 +517,7 @@ namespace ToreAurstadIT.LambdaParser
                     #region case ")":
                     case ")":
                         {
-                            // 结束一个isClosedWrap变量
+                            // End an is closed Wrap variable
                             isClosedWrap = true;
                             return null;
                         }
@@ -526,7 +526,7 @@ namespace ToreAurstadIT.LambdaParser
                     #region case "]":
                     case "]":
                         {
-                            // 结束一个isClosedWrap变量
+                            // End a is closed Wrap variable
                             isClosedWrap = true;
                             return null;
                         }
@@ -535,7 +535,7 @@ namespace ToreAurstadIT.LambdaParser
                     #region case "}":
                     case "}":
                         {
-                            // 结束一个isClosedWrap变量
+                            // End a is closed Wrap variable
                             isClosedWrap = true;
                             return null;
                         }
@@ -691,12 +691,12 @@ namespace ToreAurstadIT.LambdaParser
                     #endregion
                 }
             }
-            /********************** (End) 第一次读取，一元操作或一个对象 **************************/
+            /********************** (End)First reading, one yuan operation or an object **************************/
 
 
-            /********************** (Start) 第二(N)次读取，都将是二元或三元操作 **********************/
+            /********************** (Start) Second (n) read, will be binary or three yuan operation **********************/
             int nextLevel = 0;
-            // 若isCloseWrap为false(遇到反括号则直接返回)，且下一个操作符的优先级大于当前优先级，则计算下一个
+           // If the is close wrap is false (returned directly), and the priority of the next operator is greater than the current priority, the next one is calculated.
             while ((isClosedWrap == false) && (nextLevel = TryGetNextPriorityLevel()) > priorityLevel)
             {
                 string nextVal = _codeParser.ReadString();
@@ -706,7 +706,7 @@ namespace ToreAurstadIT.LambdaParser
                     #region case "[":
                     case "[":
                         {
-                            // 索引器访问
+                            // Indexer Access
                             bool newIsClosedWrap;
                             if (currentExpression.Type.IsArray)
                             {
@@ -725,7 +725,7 @@ namespace ToreAurstadIT.LambdaParser
                                     PropertyInfo propertyInfo = currentExpression.Type.GetProperty(indexerName);
                                     MethodInfo methodInfo = propertyInfo.GetGetMethod();
 
-                                    // 获取参数
+                                    //Get parameters
                                     List<Expression> listParam = ReadParams(nextVal, true);
 
                                     currentExpression = Expression.Call(currentExpression, methodInfo, listParam);
@@ -776,10 +776,10 @@ namespace ToreAurstadIT.LambdaParser
                         {
                             Expression right = ReadExpression(nextLevel, wrapStart, out isClosedWrap);
 
-                            // 其中某一个是string类型
+                            //One of them is a String type
                             if (currentExpression.Type == typeof(string) || right.Type == typeof(string))
                             {
-                                // 调用string.Concat方法
+                                // Call string.concat method
                                 currentExpression = Expression.Call(typeof(string).GetMethod("Concat", new Type[] { typeof(object), typeof(object) }),
                                     Expression.Convert(currentExpression, typeof(object)), Expression.Convert(right, typeof(object)));
                             }
@@ -912,13 +912,13 @@ namespace ToreAurstadIT.LambdaParser
                             // 方法
                             if (strOperator == "(")
                             {
-                                // 获取参数
+                                // Get parameters
                                 List<Expression> listParam = ReadParams("(", false);
 
                                 MethodInfo methodInfo = currentExpression.Type.GetMethod(strMember, listParam.ConvertAll<Type>(m => m.Type).ToArray());
                                 currentExpression = Expression.Call(currentExpression, methodInfo, listParam.ToArray());
                             }
-                            // 成员(PropertyOrField)
+                            // PROPERTY or FIELD
                             else
                             {
                                 currentExpression = Expression.PropertyOrField(currentExpression, strMember);
@@ -1015,7 +1015,7 @@ namespace ToreAurstadIT.LambdaParser
                         throw new ParseUnknownException(nextVal, _codeParser.Index);
                 }
             }
-            /********************** (End) 第二(N)次读取，都将是二元或三元操作 **********************/
+            /********************** (End)Second (n) read, will be binary or three yuan operation **********************/
 
             return currentExpression;
         }
@@ -1077,8 +1077,8 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 调整数值运算两边的类型
-        /// (如一个int和一个double，则将int转换成double)
+        /// Adjust the type of the numerical operation
+        /// (If an int and a double, turn int to double)
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
@@ -1103,19 +1103,19 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 读取方法调用中的参数
-        /// </summary>
-        /// <param name="priorityLevel">当前操作的优先级</param>
-        /// <returns></returns>
+     /// Read the parameters in the method call
+        /// </ summary>
+        /// <param name = "priority level"> Priority of the current operation </ param>
+        /// <returns> </ returns>
         private List<Expression> ReadParams(string startSymbol, bool hasReadPre)
         {
-            // 读前置括号
+            //Read the front bracket
             if (!hasReadPre)
             {
                 _codeParser.ReadSymbol(startSymbol);
             }
 
-            // 读参数
+            // Read parameters
             List<Expression> listParam = new List<Expression>();
             bool newIsClosedWrap = false;
             while (!newIsClosedWrap)
@@ -1131,27 +1131,27 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 读取圆括号中的字符串
-        /// </summary>
-        /// <param name="hasReadPre">是否已经读取了前置括号</param>
-        /// <returns></returns>
+    /// Read the string in the parentheses
+        /// </ summary>
+        /// <param name = "HAS READ PRE"> Do you have read the front parentheses </ param>
+        /// <returns> </ returns>
         private string GetBracketString(bool hasReadPre)
         {
-            // 保存还原点
+            // Save the restore point
             CodeParserPosition position = _codeParser.SavePosition();
 
-            // 读(
+           // read(
             if (!hasReadPre)
             {
                 _codeParser.ReadSymbol("(");
             }
 
-            // 读中间内容
+            // Read the intermediate content
             StringBuilder sb = new StringBuilder();
             string str = null;
             while ((str = this._codeParser.ReadString(false)) != ")")
             {
-                // 读到(则表示括号有嵌套，还原，返回null
+                //Read (, it means that the brackets have nested, restore, return null
                 if (str == "(")
                 {
                     _codeParser.RevertPosition(position);
@@ -1164,7 +1164,7 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 获取下一个操作的优先级。-1表示没有操作。
+        /// Get the priority of the next operation. -1 means no operation。
         /// </summary>
         /// <returns></returns>
         private int TryGetNextPriorityLevel()
@@ -1179,11 +1179,11 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 获取操作符的优先级，越大优先级越高
+        /// Get the priority of the operator, the higher the priority, the higher the priority
         /// </summary>
         /// <param name="operatorSymbol">操作符</param>
         /// <param name="isBefore">是否前置操作符(一元)</param>
-        /// <returns>优先级</returns>
+        /// <Returns> Priority </ RETURNS>
         static private int GetOperatorLevel(string operatorSymbol, bool isBefore)
         {
             switch (operatorSymbol)
@@ -1202,7 +1202,7 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 读类型
+        ///Read type
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
@@ -1222,7 +1222,7 @@ namespace ToreAurstadIT.LambdaParser
 
             while (type == null)
             {
-                // 读泛型参数
+                //Reading parameters
                 if (_codeParser.PeekString() == "<")
                 {
                     _codeParser.ReadString();
@@ -1260,9 +1260,9 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 根据类型名称获取类型对象
+        /// Get the type object according to the type name
         /// </summary>
-        /// <param name="typeName">类型名称。可以是简写：如int、string</param>
+    /// <param name = "type name"> Type name. It can be short-written: such as int, string </ param>
         /// <returns></returns>
         private Type GetType(string typeName)
         {
@@ -1350,21 +1350,24 @@ namespace ToreAurstadIT.LambdaParser
 
                 default:
                     {
-                        // 先当typeName是类的全名
+                      // First, Type Name is a full name of the class.
                         type = GetTypeCore(typeName);
 
-                        // 没有找到则用所有的命名空间去一次次匹配
+                     // Nothing to find all the namespace to match again
                         if (type == null)
                         {
                             foreach (string theNamespace in this.Namespaces)
                             {
                                 type = GetTypeCore(theNamespace + "." + typeName);
-
-                                // 找到即停，不继续找（如果两个命名空间下有两个同名类，则这里永远是返回第一个，而不是报错）
                                 if (type != null)
                                 {
                                     break;
                                 }
+
+                        //// Find instant stop, don't continue to find (if there are two namespaces under the two namespaces, it will always return the first one, not an error)         if (type != null)
+                        //        {
+                        //            break;
+                        //        }
                             }
                         }
                     }
@@ -1397,9 +1400,9 @@ namespace ToreAurstadIT.LambdaParser
         }
 
 
-        /// <summary>
-        /// 根据类型名称获取类型的对象
-        /// </summary>
+       /// <summary>
+        // / Object of the type according to the type name
+        /// </ summary>
         /// <param name="typeName"></param>
         /// <returns></returns>
         private Type GetTypeCore(string typeName)

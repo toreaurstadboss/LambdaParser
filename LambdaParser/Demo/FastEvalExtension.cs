@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 
-namespace ToreAurstadIT.LambdaParser
+namespace ToreAurstadIT.LambdaParser.Demo
 {
     static public class FastEvalExtension
     {
@@ -14,11 +14,11 @@ namespace ToreAurstadIT.LambdaParser
             return func(control);
         }
 
-        // 根据类型和属性名缓存
+        // Cache according to type and attribute name
         static Dictionary<Type, Dictionary<string, Func<object, object>>> _dicCache = new Dictionary<Type, Dictionary<string, Func<object, object>>>();
 
         /// <summary>
-        /// 从缓存中取Func，缓存没有则创建后放到缓存
+        /// Take FUNC from the cache, the cache is not created, put it in the cache
         /// </summary>
         static private Func<object, object> GetFunc(System.Web.UI.TemplateControl control, string propertyExpression)
         {
@@ -49,7 +49,7 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 创建Func
+        ///Create a FUNC
         /// </summary>
         static private Func<object, object> CreateFunc(Type dataItemType, string propertyExpression)
         {

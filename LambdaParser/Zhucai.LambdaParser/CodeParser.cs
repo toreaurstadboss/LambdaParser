@@ -10,22 +10,22 @@ namespace ToreAurstadIT.LambdaParser
     public class CodeParser
     {
         /// <summary>
-        /// 当前读取的索引位置
+        /// Currently read index position
         /// </summary>
         public int Index { get; private set; }
 
         /// <summary>
-        /// 当前读取的字符长度
+        /// Currently read characters length
         /// </summary>
         public int Length { get; private set; }
 
         /// <summary>
-        /// 整个传入的代码内容
+        /// The entire incoming code content
         /// </summary>
         public string Content { get; private set; }
 
         /// <summary>
-        /// 分析".."或@".."所定义的字符串
+        /// Analysis ".." or @ ".." defined string
         /// </summary>
         public string DefineString { get; private set; }
 
@@ -35,7 +35,7 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 往下读取字符串。(此方法是Read()方法的封装)
+        ///Read the string down. (This method is the encapsulation of the read () method)
         /// </summary>
         /// <returns></returns>
         public string ReadString()
@@ -44,7 +44,7 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 往下读取字符串。(此方法是Read()方法的封装)
+        /// Read the string down. (This method is the encapsulation of the read () method)
         /// </summary>
         /// <param name="isIgnoreWhiteSpace">是否忽略空格</param>
         /// <returns></returns>
@@ -58,7 +58,7 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 读取接下来的符号
+        ///Read the next symbol
         /// </summary>
         /// <param name="symbol"></param>
         /// <returns></returns>
@@ -68,14 +68,14 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 读取接下来的符号
+        /// Read the next symbol
         /// </summary>
         /// <param name="symbol"></param>
         /// <param name="throwExceptionIfError"></param>
         /// <returns></returns>
         public bool ReadSymbol(string symbol, bool throwExceptionIfError)
         {
-            // 跳过空格
+            // Skip space
             while (char.IsWhiteSpace(this.Content[this.Index+this.Length]))
             {
                 this.Length++;
@@ -95,7 +95,7 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 获取下一个字符串而不改变当前位置
+        /// Get the next string without changing the current location
         /// </summary>
         /// <returns></returns>
         public string PeekString()
@@ -111,45 +111,45 @@ namespace ToreAurstadIT.LambdaParser
             return str;
         }
 
-        #region private 方法
+        #region private method
 
         /// <summary>
-        /// 往下读取。通过Index和Length指示当前位置。
+        /// Read it down. Index and Length indicate the current location.
         /// </summary>
-        /// <param name="isBuildDefineString">遇到代码中的字符串常量时是否将字符串常量解析到DefineString成员。</param>
-        /// <param name="isIgnoreWhiteSpace">是否忽略空格</param>
+        /// <param name="isBuildDefineString">Whether the string constant is parsed to the Define String member when the string constant is encountered in the code.</param>
+        /// <param name="isIgnoreWhiteSpace">Do you ignore spaces?</param>
         /// <returns></returns>
         private bool Read(bool isBuildDefineString, bool isIgnoreWhiteSpace)
         {
             this.Index += this.Length;
             this.Length = 1;
 
-            // 超过了末尾，则返回0
+            // Returns 0 over the end of the end
             if (this.Index == this.Content.Length)
             {
                 this.Index = 0;
                 return false;
             }
 
-            // 检查到空白字符，则跳过，继续
+            // Check to blank characters, skip, continue
             if (isIgnoreWhiteSpace && char.IsWhiteSpace(this.Content, this.Index))
             {
                 return Read(isBuildDefineString, isIgnoreWhiteSpace);
             }
 
-            // 获取当前字母
+            //Get the current letter
             char c = this.Content[this.Index];
 
-            // 字母或下划线开头
+            // Letters or underlined
             #region if (char.IsLetter(c) || c == '_' || c == '$')
             if (char.IsLetter(c) || c == '_' || c == '$')
             {
-                // 找下去
+                //Look down
                 for (this.Length = 1; (this.Length + this.Index) < this.Content.Length; this.Length++)
                 {
                     char cInner = this.Content[this.Index + this.Length];
 
-                    // 当char不是字母、数字、下划线时返回
+                    // When Char is not letters, numbers, the next line is returned
                     if ((!char.IsLetterOrDigit(cInner)) && cInner != '_')
                     {
                         return true;
@@ -160,7 +160,7 @@ namespace ToreAurstadIT.LambdaParser
             }
             #endregion
 
-            // 数字开头
+            // Beginning
             #region if (char.IsDigit(c))
             if (char.IsDigit(c))
             {
@@ -195,15 +195,15 @@ namespace ToreAurstadIT.LambdaParser
             }
             #endregion
 
-            // 获取下一个char
+            // Get the next char
             char nextInner;
             if (!TryGetNextChar(false, out nextInner))
             {
-                // 到尾了，直接返回
+                //Go to the end, return directly
                 return true;
             }
 
-            // 是否已知符号，某些做处理
+            // Whether the symbol is known, some doing
             switch (c)
             {
                 #region case .....
@@ -257,12 +257,12 @@ namespace ToreAurstadIT.LambdaParser
 
                 #region case '/':
                 case '/':
-                    if (nextInner == c) // 注释符://
+                    if (nextInner == c) // Note: //
                     {
                         const string SampleCommitEnd = "\n";
                         this.Length++;
                         int endIndex = GetStringIndex(SampleCommitEnd, this.Index + this.Length);
-                        if (endIndex == -1) // 到达最后
+                        if (endIndex == -1) //Arrive at the last
                         {
                             this.Length = this.Content.Length - this.Index;
                         }
@@ -273,12 +273,12 @@ namespace ToreAurstadIT.LambdaParser
 
                         return true;
                     }
-                    else if (nextInner == '*') // 注释符:/**/
+                    else if (nextInner == '*') //Note: / ** /
                     {
                         const string MultiLineEnd = "*/";
                         this.Length++;
                         int endIndex = GetStringIndex(MultiLineEnd, this.Index + this.Length);
-                        if (endIndex == -1) // 到达最后
+                        if (endIndex == -1) //Arrive at the last
                         {
                             throw new ParseNoEndException("/*", this.Index);
                         }
@@ -296,14 +296,14 @@ namespace ToreAurstadIT.LambdaParser
                 case '\'':
                     for (int i = this.Index + this.Length; i < this.Content.Length; i++)
                     {
-                        // 找到\，则忽略下一个
+                        // If you find it, it is ignored the next one.
                         if (this.Content[i] == '\\')
                         {
                             i++;
                             continue;
                         }
 
-                        // 找到'
+                        //turn up'
                         if (this.Content[i] == '\'')
                         {
                             this.Length = i - this.Index + 1;
@@ -335,7 +335,7 @@ namespace ToreAurstadIT.LambdaParser
                     }
                     for (int i = this.Index + this.Length; i < this.Content.Length; i++)
                     {
-                        // 发现\，则忽略下一个
+                        //It is discovered that the next one is ignored.
                         if (this.Content[i] == '\\')
                         {
                             i++;
@@ -351,7 +351,7 @@ namespace ToreAurstadIT.LambdaParser
                             continue;
                         }
 
-                        // 发现"
+                        // discover"
                         if (this.Content[i] == '\"')
                         {
                             this.Length = i - this.Index + 1;
@@ -373,13 +373,13 @@ namespace ToreAurstadIT.LambdaParser
                         this.Length++;
                         for (int i = this.Index + this.Length; i < this.Content.Length; i++)
                         {
-                            // 找到"
+                            // turn up"
                             if (this.Content[i] == '\"')
                             {
-                                // 是否到达结尾
+                                //Will it reach the end?
                                 if ((i + 1) < this.Content.Length)
                                 {
-                                    // 是否跟着一个"
+                                    // Whether it is followed?
                                     if (this.Content[i + 1] == '\"')
                                     {
                                         i++;
@@ -391,7 +391,7 @@ namespace ToreAurstadIT.LambdaParser
 
                                 if (isBuildDefineString)
                                 {
-                                    // 目前先用替换，有空了可以做优化
+                                    // At present, use replacement, you can make optimization
                                     this.DefineString = this.Content.Substring(this.Index + 2, this.Length - 3).Replace("\"\"", "\"");
                                 }
 
@@ -406,7 +406,7 @@ namespace ToreAurstadIT.LambdaParser
                     throw new ParseUnknownException(c.ToString(), this.Index);
             }
 
-            // 处理后面可能跟等号(=)的
+            // Processing may follow the equal sign (=)
             #region switch (c)
             switch (c)
             {
@@ -438,7 +438,7 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 在this.Content获取指定字符串，返回-1表示没找到
+        /// Get the specified string in this.Content, return -1 means not found
         /// </summary>
         private int GetStringIndex(string str, int startIndex)
         {
@@ -455,7 +455,7 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 尝试获取下个字符，若已到结尾没有下个字符则返回false
+        /// Try getting the next character, if you have already arrived, there is no next character, return false.
         /// </summary>
         private bool TryGetNextChar(bool ignoreWhiteSpace, out char cNext)
         {
@@ -523,10 +523,10 @@ namespace ToreAurstadIT.LambdaParser
         #endregion
 
 
-        #region CodeParserPosition的操作
+        #region CodeParserPositionOperation
 
         /// <summary>
-        /// 保存当前位置
+        /// Save the current location
         /// </summary>
         /// <returns></returns>
         public CodeParserPosition SavePosition()
@@ -539,7 +539,7 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 恢复指定的位置
+        /// Restore the specified location
         /// </summary>
         /// <param name="position"></param>
         public void RevertPosition(CodeParserPosition position)
@@ -550,7 +550,7 @@ namespace ToreAurstadIT.LambdaParser
         }
 
         /// <summary>
-        /// 恢复到初始状态
+        /// Restore to the initial state
         /// </summary>
         public void RevertPosition()
         {
@@ -567,7 +567,7 @@ namespace ToreAurstadIT.LambdaParser
     }
 
     /// <summary>
-    /// CodeParser保存的位置点，用来还原
+    ///Code Parser Save the location to restore
     /// </summary>
     abstract public class CodeParserPosition
     {
