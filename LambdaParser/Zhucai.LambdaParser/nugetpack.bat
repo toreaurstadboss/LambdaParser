@@ -1,0 +1,1 @@
+nuget pack .\ToreAurstadIT.LambdaParser.csproj -Prop Configuration=Release  

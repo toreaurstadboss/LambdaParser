@@ -3,7 +3,7 @@
 Generic lambda parser for C# which parses strings containing lambda expressions into 
 code (delegates and funcs) at runtime, which can then be invoked to either run or return values.
 
-### Last version : 1.1.0
+### Last version : 1.2.0
 ### Last updated: 01.09.2021
 
 This is a lib for parsing code in runtime. The program language is C#.
