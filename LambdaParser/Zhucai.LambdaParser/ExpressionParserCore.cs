@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Globalization;
 
 namespace ToreAurstadIT.LambdaParser
 {
@@ -1052,7 +1053,15 @@ namespace ToreAurstadIT.LambdaParser
                 default:
                     if (val.IndexOf('.') >= 0)
                     {
-                        constVal = double.Parse(val);
+                        var numberFormat = new NumberFormatInfo();
+                        numberFormat.NumberDecimalSeparator = ".";
+                        if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator != ".")
+                        {
+                            numberFormat.NumberDecimalSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+                            val = val.Replace(".", numberFormat.NumberDecimalSeparator);
+                        }
+
+                        constVal = double.Parse(val, numberFormat);
                     }
                     else
                     {
