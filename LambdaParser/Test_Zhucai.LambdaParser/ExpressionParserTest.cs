@@ -12,6 +12,17 @@ namespace Test_Zhucai.LambdaParser
     [TestFixture]
     public class ExpressionParserTest
     {
+
+        [Test]
+        public void ParseTwoNumbers_ReturnsExpected()
+        {
+            var expected = 11;
+            string code = "() => 3 + 8";
+            Func<int> func = ExpressionParser.Compile<Func<int>>(code);
+            var actual = func();
+            Assert.AreEqual(expected, actual);      
+        }
+
         /// <summary>
         /// Digital operation
         /// </summary>
