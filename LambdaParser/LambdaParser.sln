@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions Items", "Solution
 		Zhucai.LambdaParser\ToreAurstadIT.LambdaParser.nuspec = Zhucai.LambdaParser\ToreAurstadIT.LambdaParser.nuspec
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_Zhucai.LambdaParser", "Test_Zhucai.LambdaParser\Test_Zhucai.LambdaParser.csproj", "{78118503-7AFA-459B-9D03-088D9CC64D08}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToreAurstadIT.LambdaParser.Unit.Test", "Test_Zhucai.LambdaParser\ToreAurstadIT.LambdaParser.Unit.Test.csproj", "{78118503-7AFA-459B-9D03-088D9CC64D08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

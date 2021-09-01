@@ -70,7 +70,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Common\ToreAurstadIT.LambdaParser.Common.csproj">
       <Project>{a75ee960-7a66-42cf-9198-3b7b0a34ae8b}</Project>
-      <Name>Common</Name>
+      <Name>ToreAurstadIT.LambdaParser.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zhucai.LambdaParser\ToreAurstadIT.LambdaParser.csproj">
       <Project>{8807e655-0684-4ae0-a07b-b469adbe9bdb}</Project>
